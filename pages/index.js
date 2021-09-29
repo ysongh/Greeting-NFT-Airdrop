@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import { Button } from 'antd';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -25,9 +26,9 @@ export default function Home() {
       </Head>
 
       <h1>Greeting NFT Airdrop</h1>
-      <p>Email</p>
+      <p>Enter Email</p>
       <input value={email} onChange={(e) => setEmail(e.target.value)}/>
-      <button onClick={sendEmail}>Send</button>
+      <Button type="primary" onClick={sendEmail}>Send</Button>
     </div>
   )
 }
