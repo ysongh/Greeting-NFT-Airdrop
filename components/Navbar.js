@@ -11,8 +11,8 @@ function Navbar() {
           </Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link href="/addtemplate">
-            Add Template
+          <Link href="/sendgreeting">
+            Send Greeting
           </Link>
         </Menu.Item>
       </Menu>
