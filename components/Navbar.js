@@ -1,20 +1,26 @@
 import Link from 'next/link'
-import { Layout, Button } from 'antd'
+import { Layout, Menu, Button } from 'antd'
 
 function Navbar() {
   return (
-    <Layout.Header>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <Link href="/">
-          Greeting NFT Airdrop
-        </Link>
-        <Button
+    <Layout.Header style={{ display: 'flex', alignItems: 'center' }}>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
+        <Menu.Item key="1">
+          <Link href="/">
+            Greeting NFT Airdrop
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link href="/addtemplate">
+            Add Template
+          </Link>
+        </Menu.Item>
+      </Menu>
+      <Button
           type="primary"
         >
           Connect to Wallet
         </Button>
-      </div>
-     
     </Layout.Header>
   )
 }

@@ -1,3 +1,5 @@
+import { Layout } from 'antd'
+
 import '../styles/globals.css'
 import "antd/dist/antd.css"
 
@@ -9,7 +11,9 @@ function MyApp({ Component, pageProps }) {
     <div>
       <Head />
       <Navbar />
-      <Component {...pageProps} />
+      <Layout.Content style={{ padding: '20px 50px' }}>
+        <Component {...pageProps} />
+      </Layout.Content>      
     </div>
   )
 }
