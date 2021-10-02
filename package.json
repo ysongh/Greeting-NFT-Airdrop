@@ -11,10 +11,12 @@
   "dependencies": {
     "antd": "^4.16.13",
     "dotenv": "^10.0.0",
+    "ethers": "^5.4.7",
     "next": "11.1.2",
     "nodemailer": "^6.6.5",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "web3modal": "^1.9.4"
   },
   "devDependencies": {
     "eslint": "7.32.0",

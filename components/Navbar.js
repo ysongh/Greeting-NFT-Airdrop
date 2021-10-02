@@ -1,7 +1,26 @@
-import Link from 'next/link'
-import { Layout, Menu, Button } from 'antd'
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Layout, Menu, Button } from 'antd';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal'
 
 function Navbar() {
+  const [address, setAddress] = useState('');
+
+  const connectWallet = async () => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);  
+    console.log(provider);
+
+    const { chainId } = await provider.getNetwork();
+    console.log(chainId);
+
+    const signer = provider.getSigner();
+    const walletAddress = await signer.getAddress();
+    setAddress(walletAddress);
+  }
+
   return (
     <Layout.Header style={{ display: 'flex', alignItems: 'center' }}>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
@@ -18,8 +37,9 @@ function Navbar() {
       </Menu>
       <Button
           type="primary"
+          onClick={connectWallet}
         >
-          Connect to Wallet
+          {address ? address : "Connect to Wallet"}
         </Button>
     </Layout.Header>
   )
