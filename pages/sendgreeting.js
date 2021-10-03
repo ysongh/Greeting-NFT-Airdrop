@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { Card, Form, Input, Button, Upload, message } from 'antd';
+import { Card, Form, Input, Button, Upload } from 'antd';
 import { UploadOutlined, SendOutlined } from '@ant-design/icons';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+
+import GreetingNFT from '../abis/GreetingNFT.json';
 
 export default function SendGreeting() {
   const [form] = Form.useForm();
@@ -18,6 +22,16 @@ export default function SendGreeting() {
   const onFinish = async (values) => {
     console.log(values);
     console.log(imageUrl);
+
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);  
+    const signer = provider.getSigner();
+
+    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    let transaction = await contract.addGreeting(values.email, values.message);
+    let tx = await transaction.wait();
+    console.log(tx);
   };
 
   return (
