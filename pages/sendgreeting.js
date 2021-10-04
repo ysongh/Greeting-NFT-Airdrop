@@ -29,7 +29,7 @@ export default function SendGreeting() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
-    let transaction = await contract.addGreeting(values.email, values.message);
+    let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
     let tx = await transaction.wait();
     console.log(tx);
   };
@@ -63,6 +63,18 @@ export default function SendGreeting() {
           </Form.Item>
 
           <Form.Item
+            name="imageURL"
+            label="Greeting URL"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          {/* <Form.Item
             name="upload"
             label="Upload a Greeting Card"
             rules={[
@@ -77,7 +89,7 @@ export default function SendGreeting() {
             <Upload name="logo" listType="picture">
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
