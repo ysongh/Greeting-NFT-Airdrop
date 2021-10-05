@@ -32,7 +32,27 @@ export default function SendGreeting() {
     let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
     let tx = await transaction.wait();
     console.log(tx);
+    let data = tx.events[0].args;
+    console.log(data);
+    sendEmail(data);
   };
+
+  const sendEmail = async data => {
+    const res = await fetch('/api/sendemail', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.email,
+        imageURL: data.imageURL,
+        message: data.message,
+        greetingId: data.greetingId.toString()
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    console.log(res);
+  }
 
   return (
     <div className="center-content">

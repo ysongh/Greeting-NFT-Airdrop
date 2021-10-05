@@ -5,7 +5,9 @@ require('dotenv').config();
 // /api/sendemail
 export default function handler(req, res) {
   const email = req.body.email;
-  console.log(email);
+  const imageURL = req.body.imageURL;
+  const message = req.body.message;
+  const greetingId = req.body.greetingId;
 
   var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -18,8 +20,12 @@ export default function handler(req, res) {
   var mailOptions = {
     from: process.env.YOUREMAIL,
     to: email,
-    subject: 'Sending Email using Node.js',
-    text: 'It works'
+    subject: 'Greeting NFT Airdrop',
+    html: `
+      <h1>Claim Greeting NFT: <a href="http://localhost:3000/${greetingId}">Link</a></h1>
+      <img src=${imageURL} alt="Greeting" style="width: 100%"/>
+      <p>${message}</p>
+    `
   };
 
   transporter.sendMail(mailOptions, function(error, info){
