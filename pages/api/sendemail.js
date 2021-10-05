@@ -22,7 +22,7 @@ export default function handler(req, res) {
     to: email,
     subject: 'Greeting NFT Airdrop',
     html: `
-      <h1>Claim Greeting NFT: <a href="http://localhost:3000/${greetingId}">Link</a></h1>
+      <h1>Claim Greeting NFT: <a href="http://localhost:3000/claimnft/${greetingId}">Link</a></h1>
       <img src=${imageURL} alt="Greeting" style="width: 100%"/>
       <p>${message}</p>
     `
