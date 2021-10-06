@@ -23,18 +23,19 @@ export default function SendGreeting() {
     console.log(values);
     console.log(imageUrl);
 
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);  
-    const signer = provider.getSigner();
+    // const web3Modal = new Web3Modal();
+    // const connection = await web3Modal.connect();
+    // const provider = new ethers.providers.Web3Provider(connection);  
+    // const signer = provider.getSigner();
 
-    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
-    let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
-    let tx = await transaction.wait();
-    console.log(tx);
-    let data = tx.events[0].args;
-    console.log(data);
-    sendEmail(data);
+    // let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    // let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
+    // let tx = await transaction.wait();
+    // console.log(tx);
+    // let data = tx.events[0].args;
+    // console.log(data);
+    // sendEmail(data);
+    sendNFTWithNFTPort(values.upload);
   };
 
   const sendEmail = async data => {
@@ -52,6 +53,31 @@ export default function SendGreeting() {
     })
 
     console.log(res);
+  }
+
+  const sendNFTWithNFTPort = async image => {
+    const form = new FormData();
+    form.append('file', image[0].originFileObj);
+
+    const options = {
+      method: 'POST',
+      body: form,
+      headers: {
+        "Authorization": process.env.NEXT_PUBLIC_NFTPORT_APIKEY,
+      },
+    };
+
+    fetch("https://api.nftport.xyz/easy_mint?" + new URLSearchParams({
+      chain: 'polygon',
+      name: "Test",
+      description: "It works",
+      mint_to_address: "0xd173313a51f8fc37bcf67569b463abd89d81844f",
+    }), options)
+      .then(function(response) { return response.json() })
+      .then(function(responseJson) {
+        // Handle the response
+        console.log(responseJson);
+      })
   }
 
   return (
@@ -87,19 +113,19 @@ export default function SendGreeting() {
             label="Greeting URL"
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
             <Input />
           </Form.Item>
 
-          {/* <Form.Item
+          <Form.Item
             name="upload"
             label="Upload a Greeting Card"
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
             valuePropName="fileList"
@@ -109,7 +135,7 @@ export default function SendGreeting() {
             <Upload name="logo" listType="picture">
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
