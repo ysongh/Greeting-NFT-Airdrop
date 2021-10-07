@@ -4,7 +4,7 @@ import { Layout, Menu, Button } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal'
 
-function Navbar() {
+function Navbar({ setUserWalletAddress }) {
   const [address, setAddress] = useState('');
 
   const connectWallet = async () => {
@@ -19,6 +19,7 @@ function Navbar() {
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
     setAddress(walletAddress);
+    setUserWalletAddress(walletAddress);
   }
 
   return (

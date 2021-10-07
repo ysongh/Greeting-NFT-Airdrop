@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Card, Image, Input, Button, Upload } from 'antd';
+import { Card, Image, Button, Typography } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
 import GreetingNFT from '../../../abis/GreetingNFT.json';
 
-function claimnft() {
+function claimnft({ userWalletAddress }) {
   const router = useRouter();
   const { id } = router.query;
 
   const [imageUrl, setImageUrl] = useState('');
   const [message, setMessage] = useState('');
+  const [transactionLink, setTransactionLink] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -35,7 +36,8 @@ function claimnft() {
       method: 'POST',
       body: JSON.stringify({
         imageUrl,
-        message
+        message,
+        address: userWalletAddress
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -44,6 +46,7 @@ function claimnft() {
 
     const tx = await res.json();
     console.log(tx);
+    setTransactionLink(tx.msg.transaction_external_url);
   }
 
   return (
@@ -54,7 +57,18 @@ function claimnft() {
           src={imageUrl}
         />
         <p>{message}</p>
-        <Button type="primary" block onClick={claimNFTandMint}>Claim</Button>
+        {userWalletAddress
+          ? <Button type="primary" block onClick={claimNFTandMint}>Claim</Button>
+          : <Typography.Title level={5} type="danger">
+              Connect to your wallet
+            </Typography.Title>
+        }
+        {transactionLink && 
+          <Typography.Title level={5} type="danger">
+            Success, <a href={transactionLink} target="_blank" rel="noopener noreferrer">
+              Transaction Details
+            </a>
+          </Typography.Title>}
       </Card>
     </div>
   )

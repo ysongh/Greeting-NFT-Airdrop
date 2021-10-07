@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   try{
     const url = req.body.imageUrl;
     const message = req.body.message;
+    const address = req.body.address;
 
     const { filename } = await download.image({
       url: url,
@@ -30,9 +31,9 @@ export default async function handler(req, res) {
 
     const tx = await fetch("https://api.nftport.xyz/easy_mint?" + new URLSearchParams({
       chain: 'polygon',
-      name: "Test",
+      name: "Greeting Card",
       description: message,
-      mint_to_address: "0xd173313a51f8fc37bcf67569b463abd89d81844f",
+      mint_to_address: address,
     }), options)
 
     const txData = await tx.json();
