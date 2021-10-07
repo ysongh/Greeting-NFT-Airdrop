@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Upload } from 'antd';
-import { UploadOutlined, SendOutlined } from '@ant-design/icons';
+import { Form, Input, Button, notification } from 'antd';
+import { SendOutlined } from '@ant-design/icons';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
@@ -41,7 +41,16 @@ function SendNFTByEmailForm() {
     })
 
     console.log(res);
+    openNotification(data.email);
   }
+
+  const openNotification = email => {
+    notification.open({
+      message: 'Success',
+      description: 'Email was sent to ' + email,
+      duration: 0
+    });
+  };
 
   return (
     <Form form={form} layout="vertical" name="control-hooks" onFinish={onFinish}>
