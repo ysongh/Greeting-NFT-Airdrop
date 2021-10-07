@@ -23,19 +23,20 @@ export default function SendGreeting() {
     console.log(values);
     console.log(imageUrl);
 
-    // const web3Modal = new Web3Modal();
-    // const connection = await web3Modal.connect();
-    // const provider = new ethers.providers.Web3Provider(connection);  
-    // const signer = provider.getSigner();
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);  
+    const signer = provider.getSigner();
 
-    // let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
-    // let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
-    // let tx = await transaction.wait();
-    // console.log(tx);
-    // let data = tx.events[0].args;
-    // console.log(data);
-    // sendEmail(data);
-    sendNFTWithNFTPort(values.upload);
+    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
+    let tx = await transaction.wait();
+    console.log(tx);
+    let data = tx.events[0].args;
+    console.log(data);
+    sendEmail(data);
+
+    //sendNFTWithNFTPort(values.upload);
   };
 
   const sendEmail = async data => {

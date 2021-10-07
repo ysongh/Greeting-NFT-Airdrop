@@ -21,6 +21,7 @@
 yarn.lock
 package-lock.json
 abis
+serverImage
 
 # debug
 npm-debug.log*

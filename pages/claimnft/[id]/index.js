@@ -30,6 +30,22 @@ function claimnft() {
     if(id) loadData();
   }, [id])
 
+  const claimNFTandMint = async () => {
+    const res = await fetch('/api/mintnft', {
+      method: 'POST',
+      body: JSON.stringify({
+        imageUrl,
+        message
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const tx = await res.json();
+    console.log(tx);
+  }
+
   return (
     <div className="center-content">
       <Card title="Claim Greeting NFT" style={{ maxWidth: '400px' }}>
@@ -38,7 +54,7 @@ function claimnft() {
           src={imageUrl}
         />
         <p>{message}</p>
-        <Button type="primary" block>Claim</Button>
+        <Button type="primary" block onClick={claimNFTandMint}>Claim</Button>
       </Card>
     </div>
   )
