@@ -6,7 +6,7 @@ import Web3Modal from 'web3modal';
 
 import GreetingNFT from '../../../abis/GreetingNFT.json';
 
-function claimnft({ userWalletAddress }) {
+function Claimnft({ userWalletAddress }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -74,4 +74,4 @@ function claimnft({ userWalletAddress }) {
   )
 }
 
-export default claimnft
+export default Claimnft
