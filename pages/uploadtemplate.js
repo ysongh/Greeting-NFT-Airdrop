@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Card, Form, Input, Upload, Button } from 'antd';
+import { Card, Form, Input, Upload, Button, Typography } from 'antd';
 import { UploadOutlined, SendOutlined } from '@ant-design/icons';
-import { providers } from "ethers";
+import { ethers, providers } from "ethers";
 import { init } from "@textile/eth-storage";
+import Web3Modal from 'web3modal';
 
-export default function UploadTemplate() {
+import GreetingNFT from '../abis/GreetingNFT.json';
+
+export default function UploadTemplate({ userWalletAddress }) {
   const [form] = Form.useForm();
 
   const [cid, setCid] = useState("");
@@ -20,6 +23,11 @@ export default function UploadTemplate() {
   const onFinish = async (values) => {
     console.log(values);
 
+    const cid = addImageToETHStorage(values);
+    addTemplate(values, cid);
+  };
+
+  const addImageToETHStorage = async values => {
     // Initialization
     await window.ethereum.enable();
     const provider = new providers.Web3Provider(window.ethereum);
@@ -45,7 +53,23 @@ export default function UploadTemplate() {
 
     // Withdraw the fund 
     await storage.releaseDeposit();
-  };
+
+    return cid['/'];
+  }
+
+  const addTemplate = async (values, cid) => {
+    const url = `ipfs://${cid}`;
+
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);  
+    const signer = provider.getSigner();
+
+    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    let transaction = await contract.addTemplate(values.title, ethers.utils.parseUnits(values.price, 'ether'), url);
+    let tx = await transaction.wait();
+    console.log(tx);
+  }
 
   return (
     <div className="center-content">
@@ -93,9 +117,14 @@ export default function UploadTemplate() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
-              Upload
-            </Button>
+            {userWalletAddress
+              ? <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
+                  Upload
+                </Button>
+              : <Typography.Title level={5} type="danger">
+                  Connect to your wallet
+                </Typography.Title>
+            }
           </Form.Item>
         </Form>
         <p>{cid}</p>
