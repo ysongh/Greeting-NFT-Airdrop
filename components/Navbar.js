@@ -31,11 +31,16 @@ function Navbar({ setUserWalletAddress }) {
           </Link>
         </Menu.Item>
         <Menu.Item key="2">
+          <Link href="/templatelist">
+            Template List
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="3">
           <Link href="/uploadtemplate">
             Upload Template
           </Link>
         </Menu.Item>
-        <Menu.Item key="3">
+        <Menu.Item key="4">
           <Link href="/sendgreeting">
             Send Greeting
           </Link>

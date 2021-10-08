@@ -58,7 +58,7 @@ export default function UploadTemplate({ userWalletAddress }) {
   }
 
   const addTemplate = async (values, cid) => {
-    const url = `ipfs://${cid}`;
+    const url = `https://ipfs.io/ipfs/${cid}`;
 
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
