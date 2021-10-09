@@ -8,6 +8,8 @@ function Navbar({ setUserWalletAddress }) {
   const [address, setAddress] = useState('');
 
   const connectWallet = async () => {
+    setAddress("");
+    setUserWalletAddress("");
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);  
@@ -50,7 +52,7 @@ function Navbar({ setUserWalletAddress }) {
           type="primary"
           onClick={connectWallet}
         >
-          {address ? address : "Connect to Wallet"}
+          {address ? address.substring(0,8) + "..." + address.substring(34,42) : "Connect to Wallet"}
         </Button>
     </Layout.Header>
   )

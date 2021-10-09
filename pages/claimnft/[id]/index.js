@@ -11,6 +11,7 @@ function Claimnft({ userWalletAddress }) {
   const { id } = router.query;
 
   const [imageUrl, setImageUrl] = useState('');
+  const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [transactionLink, setTransactionLink] = useState('');
 
@@ -25,6 +26,7 @@ function Claimnft({ userWalletAddress }) {
       const greetingData = await contract.greetings(id);
       console.log(greetingData);
       setImageUrl(greetingData.imageURL);
+      setTitle(greetingData.title);
       setMessage(greetingData.message);
     }
 
@@ -35,6 +37,7 @@ function Claimnft({ userWalletAddress }) {
     const res = await fetch('/api/mintnft', {
       method: 'POST',
       body: JSON.stringify({
+        title,
         imageUrl,
         message,
         address: userWalletAddress
@@ -56,6 +59,7 @@ function Claimnft({ userWalletAddress }) {
           width={'100%'}
           src={imageUrl}
         />
+        <h2>{title}</h2>
         <p>{message}</p>
         {userWalletAddress
           ? <Button type="primary" block onClick={claimNFTandMint}>Claim</Button>

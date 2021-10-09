@@ -26,6 +26,7 @@ contract GreetingNFT {
   struct Greeting {
     uint greetingId;
     string email;
+    string title;
     string message;
     string imageURL;
     address from;
@@ -34,6 +35,7 @@ contract GreetingNFT {
   event GreetingCreated (
     uint greetingId,
     string email,
+    string title,
     string message,
     string imageURL,
     address from
@@ -48,10 +50,10 @@ contract GreetingNFT {
     emit TemplateCreated(templateCount, _title, _price, _imageURL, msg.sender);
   }
 
-  function addGreeting(string memory _email, string memory _message, string memory _imageURL) public {
+  function addGreeting(string memory _email, string memory _title, string memory _message, string memory _imageURL) public {
     greetingsCount++;
-    greetings[greetingsCount] = Greeting(greetingsCount, _email, _message, _imageURL, msg.sender);
+    greetings[greetingsCount] = Greeting(greetingsCount, _email, _title, _message, _imageURL, msg.sender);
 
-    emit GreetingCreated(greetingsCount, _email, _message, _imageURL, msg.sender);
+    emit GreetingCreated(greetingsCount, _email, _title, _message, _imageURL, msg.sender);
   }
 }

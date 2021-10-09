@@ -18,7 +18,7 @@ function SendNFTByEmailForm() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
-    let transaction = await contract.addGreeting(values.email, values.message, values.imageURL);
+    let transaction = await contract.addGreeting(values.email, values.title, values.message, values.imageURL);
     let tx = await transaction.wait();
     console.log(tx);
     let data = tx.events[0].args;
@@ -32,6 +32,7 @@ function SendNFTByEmailForm() {
       body: JSON.stringify({
         email: data.email,
         imageURL: data.imageURL,
+        title: data.title,
         message: data.message,
         greetingId: data.greetingId.toString()
       }),
@@ -57,6 +58,18 @@ function SendNFTByEmailForm() {
       <Form.Item
         name="email"
         label="Recipient Email"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="title"
+        label="Title"
         rules={[
           {
             required: true,

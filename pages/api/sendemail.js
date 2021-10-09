@@ -6,6 +6,7 @@ require('dotenv').config();
 export default function handler(req, res) {
   const email = req.body.email;
   const imageURL = req.body.imageURL;
+  const title = req.body.title;
   const message = req.body.message;
   const greetingId = req.body.greetingId;
 
@@ -23,6 +24,7 @@ export default function handler(req, res) {
     subject: 'Greeting NFT Airdrop',
     html: `
       <h1>Claim Greeting NFT: <a href="http://localhost:3000/claimnft/${greetingId}">Link</a></h1>
+      <h2>${title}</h2>
       <img src=${imageURL} alt="Greeting" style="width: 100%"/>
       <p>${message}</p>
     `

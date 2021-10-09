@@ -13,15 +13,13 @@ export default function SendGreeting() {
 
   return (
     <div className="center-content">
-      <Card title="Send Greeting NFT" style={{ minWidth: '400px' }}>
+      <Card title="Send Greeting NFT" style={{ minWidth: '500px' }}>
         <Typography.Paragraph level={5}>
           Send NFT by:
         </Typography.Paragraph>
         <Radio.Group onChange={onChange} value={type}>
-          <Space direction="vertical">
-            <Radio value={1}>By Email</Radio>
-            <Radio value={2}>By Wallet Address</Radio>
-          </Space>
+          <Radio value={1}>By Email</Radio>
+          <Radio value={2}>By Wallet Address</Radio>
         </Radio.Group>
 
         <Divider />

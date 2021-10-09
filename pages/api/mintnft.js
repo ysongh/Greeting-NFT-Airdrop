@@ -8,6 +8,7 @@ require('dotenv').config();
 export default async function handler(req, res) {
   try{
     const url = req.body.imageUrl;
+    const title = req.body.title;
     const message = req.body.message;
     const address = req.body.address;
 
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
 
     const tx = await fetch("https://api.nftport.xyz/easy_mint?" + new URLSearchParams({
       chain: 'polygon',
-      name: "Greeting Card",
+      name: title,
       description: message,
       mint_to_address: address,
     }), options)
