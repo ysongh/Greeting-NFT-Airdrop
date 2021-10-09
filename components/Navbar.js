@@ -25,8 +25,8 @@ function Navbar({ setUserWalletAddress }) {
   }
 
   return (
-    <Layout.Header style={{ display: 'flex', alignItems: 'center' }}>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
+    <Layout.Header className="primary-bg-color" style={{ display: 'flex', alignItems: 'center' }}>
+      <Menu className="primary-bg-color" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
         <Menu.Item key="1">
           <Link href="/">
             Greeting NFT Airdrop

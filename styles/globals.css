@@ -19,3 +19,5 @@ a {
   display: flex;
   justify-content: center;
 }
+
+.primary-bg-color { background-color: #fce850 !important; }

@@ -1,27 +1,33 @@
-import { useState } from 'react';
-import { Button } from 'antd';
+import { useRouter } from 'next/router';
+import { Row, Col, Typography, Button } from 'antd';
+import Image from 'next/image'
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  const sendEmail = async () => {
-    const res = await fetch('/api/sendemail', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    console.log(res);
-  }
   return (
     <div className={styles.container}>
-      <h1>Greeting NFT Airdrop</h1>
-      <p>Enter Email</p>
-      <input value={email} onChange={(e) => setEmail(e.target.value)}/>
-      <Button type="primary" onClick={sendEmail}>Send</Button>
+      <Row gutter={16} style={{ marginTop: '3rem'}}>
+        <Col className="gutter-row" xs={24} md={12} style={{ padding: '2rem'}}>
+          <Typography.Title level={1}>Airdrop NFT of Greeting Card</Typography.Title>
+          <p style={{ fontSize: '16px' }}>
+            You can send a NFT of Greeting Catd to someone via email
+          </p>
+          <Button type="primary" size='large' onClick={() => router.push('/templatelist')}>
+            Send Greeting Card
+          </Button>
+        </Col>
+        <Col className="gutter-row" xs={24} md={12}>
+          <center>
+            <Image
+              src="/hero.svg"
+              alt="Greeting Card"
+              width="300"
+              height="300" />
+          </center>
+        </Col>
+      </Row>
     </div>
   )
 }
