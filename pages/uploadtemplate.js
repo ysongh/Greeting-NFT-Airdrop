@@ -23,7 +23,7 @@ export default function UploadTemplate({ userWalletAddress }) {
   const onFinish = async (values) => {
     console.log(values);
 
-    const cid = addImageToETHStorage(values);
+    const cid = await addImageToETHStorage(values);
     addTemplate(values, cid);
   };
 
@@ -65,7 +65,9 @@ export default function UploadTemplate({ userWalletAddress }) {
     const provider = new ethers.providers.Web3Provider(connection);  
     const signer = provider.getSigner();
 
-    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    const { chainId } = await provider.getNetwork();
+
+    let contract = new ethers.Contract(GreetingNFT.networks[chainId].address, GreetingNFT.abi, signer);
     let transaction = await contract.addTemplate(values.title, ethers.utils.parseUnits(values.price, 'ether'), url);
     let tx = await transaction.wait();
     console.log(tx);

@@ -17,7 +17,9 @@ function SendNFTByEmailForm({ greetingURL }) {
     const provider = new ethers.providers.Web3Provider(connection);  
     const signer = provider.getSigner();
 
-    let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
+    const { chainId } = await provider.getNetwork();
+
+    let contract = new ethers.Contract(GreetingNFT.networks[chainId].address, GreetingNFT.abi, signer);
     let transaction = await contract.addGreeting(values.email, values.title, values.message, values.imageURL || greetingURL);
     let tx = await transaction.wait();
     console.log(tx);
