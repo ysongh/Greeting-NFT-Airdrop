@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Row, Col, Card, Button, Typography } from 'antd';
+import { Row, Col, Card, Button, Typography, Result } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
+import { WalletOutlined } from '@ant-design/icons';
 
 import GreetingNFT from '../abis/GreetingNFT.json';
 
-function TemplateList({ userWalletAddress, setGreetingURL }) {
+function TemplateList({ userWalletAddress, setGreetingURL, connectWallet }) {
   const router = useRouter();
 
   const [count, setCount] = useState(0);
@@ -38,7 +39,7 @@ function TemplateList({ userWalletAddress, setGreetingURL }) {
       console.log(temp);
       setTemplateList(temp);
     }
-    loadData();
+    if(userWalletAddress) loadData();
   }, [userWalletAddress])
 
   return (
@@ -62,12 +63,15 @@ function TemplateList({ userWalletAddress, setGreetingURL }) {
             </Card>
           </Col>
         ))}
-        {!templateList.length
-          && <Typography.Title level={5} type="danger">
-              Connect to your wallet
-            </Typography.Title>
-        }
       </Row>
+      {!templateList.length
+          && <Result
+              icon={<WalletOutlined />}
+              title="Connect to your wallet"
+              subTitle="You can use MetaMask"
+              extra={<Button type="primary" size="large" onClick={connectWallet}>Connect</Button>}
+            />
+        }
     </div>
   )
 }

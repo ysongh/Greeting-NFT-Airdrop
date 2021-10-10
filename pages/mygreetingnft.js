@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, Divider } from 'antd';
+import { Row, Col, Card, Typography, Divider, Button, Result } from 'antd';
+import { WalletOutlined } from '@ant-design/icons';
 
-function MyGreetingnft({ userWalletAddress }) {
+function MyGreetingnft({ userWalletAddress, connectWallet }) {
   const [userNFTs, setUserNFTs] = useState([]);
 
   useEffect(() => {
     async function getUserNFT() {
       const res = await fetch(`/api/getusernft/${userWalletAddress}`);
       const { msg } = await res.json();
-      console.log(msg);
+      console.log(msg || []);
       console.log(msg.items[0].nft_data);
       setUserNFTs(msg.items[0].nft_data);
     }
@@ -21,10 +22,13 @@ function MyGreetingnft({ userWalletAddress }) {
         Your Greeting Card NFTs
       </Typography.Title>
 
-      {!userNFTs.length
-        && <Typography.Title level={5} type="danger">
-            Connect to your wallet
-          </Typography.Title>
+      {!userWalletAddress
+        && <Result
+            icon={<WalletOutlined />}
+            title="Connect to your wallet"
+            subTitle="You can use MetaMask"
+            extra={<Button type="primary" size="large" onClick={connectWallet}>Connect</Button>}
+          />
       }
 
       <Divider orientation="left">Polygon Mainnet</Divider>

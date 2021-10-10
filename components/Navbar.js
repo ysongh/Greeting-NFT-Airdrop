@@ -1,35 +1,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Layout, Menu, Button } from 'antd';
-import { ethers } from 'ethers';
-import Web3Modal from 'web3modal'
 
-function Navbar({ setUserWalletAddress }) {
-  const [address, setAddress] = useState('');
-
-  const connectWallet = async () => {
-    setAddress("");
-    setUserWalletAddress("");
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);  
-    console.log(provider);
-
-    const { chainId } = await provider.getNetwork();
-    console.log(chainId);
-
-    const signer = provider.getSigner();
-    const walletAddress = await signer.getAddress();
-    setAddress(walletAddress);
-    setUserWalletAddress(walletAddress);
-  }
-
+function Navbar({ userWalletAddress, connectWallet }) {
   return (
     <Layout.Header className="primary-bg-color" style={{ display: 'flex', alignItems: 'center' }}>
-      <Menu className="primary-bg-color" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
+      <Image
+        className="logo"
+        src="/logo.svg"
+        alt="Logo"
+        width="130"
+        height="130" />
+      <Menu className="primary-bg-color" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 2 }}>
         <Menu.Item key="1">
           <Link href="/">
-            Greeting NFT Airdrop
+            Home
           </Link>
         </Menu.Item>
         <Menu.Item key="2">
@@ -57,7 +43,7 @@ function Navbar({ setUserWalletAddress }) {
           type="primary"
           onClick={connectWallet}
         >
-          {address ? address.substring(0,8) + "..." + address.substring(34,42) : "Connect to Wallet"}
+          {userWalletAddress ? userWalletAddress.substring(0,8) + "..." + userWalletAddress.substring(34,42) : "Connect to Wallet"}
         </Button>
     </Layout.Header>
   )
