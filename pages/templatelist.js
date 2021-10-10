@@ -33,6 +33,10 @@ function TemplateList({ userWalletAddress }) {
 
   return (
     <div>
+      <Typography.Title level={1}>
+        Select the Greeting Card
+      </Typography.Title>
+
       <Row gutter={[16, 16]}>
         {templateList.map(template => (
           <Col xs={24} sm={12} md={8} lg={6} key={template.templateId.toString()}>

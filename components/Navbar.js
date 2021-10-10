@@ -47,6 +47,11 @@ function Navbar({ setUserWalletAddress }) {
             Send Greeting
           </Link>
         </Menu.Item>
+        <Menu.Item key="5">
+          <Link href="/mygreetingnft">
+            My Greeting NFTs
+          </Link>
+        </Menu.Item>
       </Menu>
       <Button
           type="primary"
