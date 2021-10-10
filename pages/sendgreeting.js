@@ -4,7 +4,7 @@ import { Card, Radio, Space, Typography, Divider } from 'antd';
 import SendNFTByEmailForm from '../components/forms/SendNFTByEmailForm';
 import SendNFTByAddressForm from '../components/forms/SendNFTByAddressForm';
 
-export default function SendGreeting() {
+export default function SendGreeting({ greetingURL }) {
   const [type, setType] = useState(1);
 
   const onChange = e => {
@@ -25,7 +25,7 @@ export default function SendGreeting() {
         <Divider />
 
         {type === 1
-          ? <SendNFTByEmailForm />
+          ? <SendNFTByEmailForm greetingURL={greetingURL} />
           : <SendNFTByAddressForm />
         }
       </Card>

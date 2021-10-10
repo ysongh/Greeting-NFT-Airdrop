@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Row, Col, Card, Button, Typography } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
 import GreetingNFT from '../abis/GreetingNFT.json';
 
-function TemplateList({ userWalletAddress }) {
+function TemplateList({ userWalletAddress, setGreetingURL }) {
+  const router = useRouter();
+
   const [count, setCount] = useState(0);
   const [templateList, setTemplateList] = useState([]);
+
+  const selectTemplate = url => {
+    setGreetingURL(url);
+    router.push('/sendgreeting');
+  }
 
   useEffect(() => {
     const loadData = async () => {
@@ -46,7 +54,7 @@ function TemplateList({ userWalletAddress }) {
             >
               <Card.Meta title={template.title} description={`${ethers.utils.formatUnits(template.price.toString(), 'ether')} ETH`} />
               <br />
-              <Button type="primary" block>
+              <Button type="primary" block onClick={() => selectTemplate(template.imageURL)}>
                 Select
               </Button>
             </Card>

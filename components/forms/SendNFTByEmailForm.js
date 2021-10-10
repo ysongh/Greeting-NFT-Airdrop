@@ -6,7 +6,7 @@ import Web3Modal from 'web3modal';
 
 import GreetingNFT from '../../abis/GreetingNFT.json';
 
-function SendNFTByEmailForm() {
+function SendNFTByEmailForm({ greetingURL }) {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
@@ -18,7 +18,7 @@ function SendNFTByEmailForm() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(GreetingNFT.networks[5777].address, GreetingNFT.abi, signer);
-    let transaction = await contract.addGreeting(values.email, values.title, values.message, values.imageURL);
+    let transaction = await contract.addGreeting(values.email, values.title, values.message, values.imageURL || greetingURL);
     let tx = await transaction.wait();
     console.log(tx);
     let data = tx.events[0].args;
@@ -91,18 +91,20 @@ function SendNFTByEmailForm() {
         <Input.TextArea rows={5} />
       </Form.Item>
 
-      <Form.Item
-        name="imageURL"
-        label="Greeting URL"
-        rules={[
-          {
-            required: false,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
+      {greetingURL
+        ? <img src={greetingURL} alt="Greeting Card" style={{ marginBottom: '1rem'}}/>
+        : <Form.Item
+            name="imageURL"
+            label="Greeting URL"
+            rules={[
+              {
+                required: false,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+      }
       <Form.Item>
         <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
           Send
