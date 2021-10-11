@@ -1,0 +1,17 @@
+{
+    "short_name": "Greeting NFT Airdrop",
+    "name": "Greeting NFT Airdrop",
+    "description": "A dapp where users can send a NFT of Greeting Card to someone via email",
+    "icons": [
+      {
+        "src": "logo192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#E7D095",
+    "background_color": "#ffffff"
+  }
+  
