@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router';
 import { Row, Col, Typography, Card, Button } from 'antd';
-import Image from 'next/image'
-import styles from '../styles/Home.module.css';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
 
   return (
-    <div className={styles.container}>
+    <div>
       <Row gutter={16} style={{ marginTop: '3rem'}}>
         <Col className="gutter-row" xs={24} md={12} style={{ padding: '2rem'}}>
           <Typography.Title level={1}>Airdrop NFT of Greeting Card</Typography.Title>
