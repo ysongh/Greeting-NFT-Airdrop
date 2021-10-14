@@ -8,6 +8,7 @@ import "antd/dist/antd.css"
 
 import Head from '../components/Header'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 function MyApp({ Component, pageProps }) {
   const [userWalletAddress, setUserWalletAddress] = useState('');
@@ -32,7 +33,7 @@ function MyApp({ Component, pageProps }) {
     <div>
       <Head />
       <Navbar userWalletAddress={userWalletAddress} connectWallet={connectWallet}  />
-      <Layout.Content style={{ padding: '10px 50px 20px 50px' }}>
+      <Layout.Content style={{ padding: '10px 50px 20px 50px', minHeight: '82vh' }}>
         <Alert
           message="Contract is deployed on Rinkeby Test Network"
           type="info"
@@ -46,6 +47,7 @@ function MyApp({ Component, pageProps }) {
           connectWallet={connectWallet}
           setGreetingURL={setGreetingURL} />
       </Layout.Content>      
+      <Footer />
     </div>
   )
 }
