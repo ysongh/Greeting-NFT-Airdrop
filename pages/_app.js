@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout } from 'antd'
+import { Layout, Alert } from 'antd'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 
@@ -32,7 +32,13 @@ function MyApp({ Component, pageProps }) {
     <div>
       <Head />
       <Navbar userWalletAddress={userWalletAddress} connectWallet={connectWallet}  />
-      <Layout.Content style={{ padding: '20px 50px' }}>
+      <Layout.Content style={{ padding: '10px 50px 20px 50px' }}>
+        <Alert
+          message="Contract is deployed on Rinkeby Test Network"
+          type="info"
+          closable
+        />
+        <br />
         <Component
           {...pageProps}
           userWalletAddress={userWalletAddress}
