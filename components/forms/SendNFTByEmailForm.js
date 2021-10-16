@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, notification } from 'antd';
+import { Form, Input, Button, Image, notification } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
@@ -94,7 +94,7 @@ function SendNFTByEmailForm({ greetingURL }) {
       </Form.Item>
 
       {greetingURL
-        ? <img src={greetingURL} alt="Greeting Card" style={{ marginBottom: '1rem'}}/>
+        ? <Image src={greetingURL} alt="Greeting Card" style={{ marginBottom: '1rem'}}/>
         : <Form.Item
             name="imageURL"
             label="Greeting URL"

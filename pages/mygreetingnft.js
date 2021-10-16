@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, Divider, Button, Result } from 'antd';
+import { Row, Col, Card, Typography, Divider, Button, Result, Image } from 'antd';
 import { WalletOutlined } from '@ant-design/icons';
 
 function MyGreetingnft({ userWalletAddress, connectWallet }) {
@@ -38,7 +38,7 @@ function MyGreetingnft({ userWalletAddress, connectWallet }) {
           <Col xs={24} sm={12} md={8} lg={6} key={nft.token_id}>
             <Card
               hoverable
-              cover={<img alt="Greeting Card" src={nft.external_data.image} />}
+              cover={<Image alt="Greeting Card" src={nft.external_data.image} />}
             >
               <Card.Meta title={nft.external_data.name} description={nft.external_data.description} />
             </Card>

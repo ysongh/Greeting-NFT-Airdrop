@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Row, Col, Card, Button, Typography, Result } from 'antd';
+import { Row, Col, Card, Button, Typography, Result, Image } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { WalletOutlined } from '@ant-design/icons';
@@ -53,7 +53,7 @@ function TemplateList({ userWalletAddress, setGreetingURL, connectWallet }) {
           <Col xs={24} sm={12} md={8} lg={6} key={template.templateId.toString()}>
             <Card
               hoverable
-              cover={<img alt="Greeting Card" src={template.imageURL} />}
+              cover={<Image alt="Greeting Card" src={template.imageURL} />}
             >
               <Card.Meta title={template.title} description={`${ethers.utils.formatUnits(template.price.toString(), 'ether')} ETH`} />
               <br />
