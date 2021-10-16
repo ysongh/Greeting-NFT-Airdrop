@@ -35,13 +35,14 @@ function Claimnft({ userWalletAddress }) {
     if(id) loadData();
   }, [id])
 
-  const claimNFTandMint = async () => {
+  const claimNFTandMint = async type => {
     const res = await fetch('/api/mintnft', {
       method: 'POST',
       body: JSON.stringify({
         title,
         imageUrl,
         message,
+        type,
         address: userWalletAddress
       }),
       headers: {
@@ -64,7 +65,15 @@ function Claimnft({ userWalletAddress }) {
         <h2>{title}</h2>
         <p>{message}</p>
         {userWalletAddress
-          ? <Button type="primary" block onClick={claimNFTandMint}>Claim</Button>
+          ? 
+            <div>
+              <Button type="primary" block onClick={() => claimNFTandMint("polygon")}>
+                Claim NFT on Polygon Mainnet
+              </Button>
+              <Button type="secondary" block onClick={() => claimNFTandMint("rinkeby")}>
+                Claim NFT on Rinkeby Testnet
+              </Button>
+            </div>
           : <Typography.Title level={5} type="danger">
               Connect to your wallet
             </Typography.Title>
