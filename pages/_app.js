@@ -6,9 +6,9 @@ import Web3Modal from 'web3modal'
 import '../styles/globals.css'
 import "antd/dist/antd.css"
 
-import Head from '../components/Header'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import Head from '../components/layout/Header'
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
 
 function MyApp({ Component, pageProps }) {
   const [userWalletAddress, setUserWalletAddress] = useState('');
