@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, Divider, Button, Result, Image } from 'antd';
+import { Row, Col, Card, Typography, Divider, Button, Result, Image, Empty } from 'antd';
 import { WalletOutlined } from '@ant-design/icons';
 
 function MyGreetingnft({ userWalletAddress, connectWallet }) {
@@ -9,9 +9,9 @@ function MyGreetingnft({ userWalletAddress, connectWallet }) {
     async function getUserNFT() {
       const res = await fetch(`/api/getusernft/${userWalletAddress}`);
       const { msg } = await res.json();
-      console.log(msg || []);
+      console.log(msg);
       console.log(msg.items[0].nft_data);
-      setUserNFTs(msg.items[0].nft_data);
+      setUserNFTs(msg.items[0].nft_data || []);
     }
     if(userWalletAddress) getUserNFT();
   }, [userWalletAddress])
@@ -45,6 +45,7 @@ function MyGreetingnft({ userWalletAddress, connectWallet }) {
           </Col>
         ))}
       </Row>
+      {userWalletAddress && !userNFTs.length && <Empty />}
     </div>
   )
 }
