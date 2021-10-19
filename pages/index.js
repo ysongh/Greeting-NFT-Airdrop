@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { Row, Col, Typography, Card, Button } from 'antd';
+import { HeartOutlined, SendOutlined, InsertRowAboveOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 
 export default function Home() {
@@ -30,16 +31,19 @@ export default function Home() {
       <Row gutter={16} style={{ marginTop: '3rem'}}>
         <Col className="gutter-row" xs={24} md={8} style={{ padding: '2rem'}}>
           <Card>
+            <SendOutlined className="home__icon" />
             <Card.Meta title="Fast Delivery" description="Send Greeting Card to anyone via email" />
           </Card>
         </Col>
         <Col className="gutter-row" xs={24} md={8} style={{ padding: '2rem'}}>
           <Card>
+            <HeartOutlined  className="home__icon" />
             <Card.Meta title="Free NFT" description="NFT of Greeting Card can be minted for free on Polygon Mainnet" />
           </Card>
         </Col>
         <Col className="gutter-row" xs={24} md={8} style={{ padding: '2rem'}}>
           <Card>
+            <InsertRowAboveOutlined  className="home__icon" />
             <Card.Meta title="Greeting Card List" description="You can select a Greeting Card to use from designers" />
           </Card>
         </Col>

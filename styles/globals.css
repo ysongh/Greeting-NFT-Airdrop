@@ -20,7 +20,9 @@ a {
   justify-content: center;
 }
 
-.logo {
+.home__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .primary-bg-color { background-color: #fce850 !important; }
