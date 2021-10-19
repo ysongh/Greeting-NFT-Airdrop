@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Card, Image, Button, Typography } from 'antd';
+import { Card, Image, Button, Typography, Spin } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
@@ -14,6 +14,7 @@ function Claimnft({ userWalletAddress }) {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [transactionLink, setTransactionLink] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -36,23 +37,31 @@ function Claimnft({ userWalletAddress }) {
   }, [id])
 
   const claimNFTandMint = async type => {
-    const res = await fetch('/api/mintnft', {
-      method: 'POST',
-      body: JSON.stringify({
-        title,
-        imageUrl,
-        message,
-        type,
-        address: userWalletAddress
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    try{
+      setLoading(true);
 
-    const tx = await res.json();
-    console.log(tx);
-    setTransactionLink(tx.msg.transaction_external_url);
+      const res = await fetch('/api/mintnft', {
+        method: 'POST',
+        body: JSON.stringify({
+          title,
+          imageUrl,
+          message,
+          type,
+          address: userWalletAddress
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const tx = await res.json();
+      console.log(tx);
+      setLoading(false);
+      setTransactionLink(tx.msg.transaction_external_url);
+    } catch(error) {
+      console.error(error);
+      setLoading(false);
+    }
   }
 
   return (
@@ -66,18 +75,19 @@ function Claimnft({ userWalletAddress }) {
         <p>{message}</p>
         {userWalletAddress
           ? 
-            <div>
+            <Spin spinning={loading}>
               <Button type="primary" block onClick={() => claimNFTandMint("polygon")}>
                 Claim NFT on Polygon Mainnet
               </Button>
               <Button type="secondary" block onClick={() => claimNFTandMint("rinkeby")}>
                 Claim NFT on Rinkeby Testnet
               </Button>
-            </div>
+            </Spin>
           : <Typography.Title level={5} type="danger">
               Connect to your wallet
             </Typography.Title>
         }
+        <br />
         {transactionLink && 
           <Typography.Title level={5} type="danger">
             Success, <a href={transactionLink} target="_blank" rel="noopener noreferrer">
