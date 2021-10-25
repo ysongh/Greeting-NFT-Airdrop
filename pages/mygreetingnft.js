@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Typography, Divider, Button, Result, Image, Empty } from 'antd';
 import { WalletOutlined } from '@ant-design/icons';
 
+import ConnectWalletInfo from '../components/common/ConnectWalletInfo';
+
 function MyGreetingnft({ userWalletAddress, connectWallet }) {
   const [userNFTs, setUserNFTs] = useState([]);
 
@@ -22,14 +24,7 @@ function MyGreetingnft({ userWalletAddress, connectWallet }) {
         Your Greeting Card NFTs
       </Typography.Title>
 
-      {!userWalletAddress
-        && <Result
-            icon={<WalletOutlined />}
-            title="Connect to your wallet"
-            subTitle="You can use MetaMask"
-            extra={<Button type="primary" size="large" onClick={connectWallet}>Connect</Button>}
-          />
-      }
+      {!userWalletAddress && <ConnectWalletInfo connectWallet={connectWallet} />}
 
       <Divider orientation="left">Polygon Mainnet</Divider>
 
