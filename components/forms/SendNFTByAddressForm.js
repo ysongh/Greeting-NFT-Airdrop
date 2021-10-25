@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Upload, Typography } from 'antd';
+import { Form, Input, Button, Upload, Typography, Spin } from 'antd';
 import { UploadOutlined, SendOutlined } from '@ant-design/icons';
 
 function SendNFTByAddressForm() {
   const [form] = Form.useForm();
 
   const [transactionLink, setTransactionLink] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const normFile = (e) => {
     console.log('Upload event:', e);
@@ -22,26 +23,33 @@ function SendNFTByAddressForm() {
   };
 
   const sendNFTWithNFTPort = async values => {
-    const form = new FormData();
-    form.append('file', values.upload[0].originFileObj);
+    try{
+      setLoading(true);
+      const form = new FormData();
+      form.append('file', values.upload[0].originFileObj);
 
-    const options = {
-      method: 'POST',
-      body: form,
-      headers: {
-        "Authorization": process.env.NEXT_PUBLIC_NFTPORT_APIKEY,
-      },
-    };
+      const options = {
+        method: 'POST',
+        body: form,
+        headers: {
+          "Authorization": process.env.NEXT_PUBLIC_NFTPORT_APIKEY,
+        },
+      };
 
-    const tx = await fetch("https://api.nftport.xyz/easy_mint?" + new URLSearchParams({
-      chain: 'polygon',
-      name: "Greeting Card",
-      description: values.message,
-      mint_to_address: values.address,
-    }), options)
+      const tx = await fetch("https://api.nftport.xyz/easy_mint?" + new URLSearchParams({
+        chain: 'polygon',
+        name: "Greeting Card",
+        description: values.message,
+        mint_to_address: values.address,
+      }), options)
 
-    const txData = await tx.json();
-    setTransactionLink(txData.transaction_external_url);
+      const txData = await tx.json();
+      setTransactionLink(txData.transaction_external_url);
+      setLoading(false);
+    } catch(error) {
+      console.error(error);
+      setLoading(false);
+    }
   }
 
   return (
@@ -88,9 +96,11 @@ function SendNFTByAddressForm() {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
-          Send
-        </Button>
+        <Spin spinning={loading}>
+          <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
+            Send
+          </Button>
+        </Spin>
       </Form.Item>
 
       {transactionLink && 
