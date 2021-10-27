@@ -11,6 +11,7 @@ export default function UploadTemplate({ userWalletAddress }) {
   const [form] = Form.useForm();
 
   const [cid, setCid] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const normFile = (e) => {
     console.log('Upload event:', e);
@@ -21,10 +22,17 @@ export default function UploadTemplate({ userWalletAddress }) {
   };
 
   const onFinish = async (values) => {
-    console.log(values);
+    try{
+      setLoading(true);
+      console.log(values);
 
-    const cid = await addImageToETHStorage(values);
-    addTemplate(values, cid);
+      const cid = await addImageToETHStorage(values);
+      addTemplate(values, cid);
+      setLoading(false);
+    } catch(error) {
+      console.error(error);
+      setLoading(false);
+    }
   };
 
   const addImageToETHStorage = async values => {
@@ -120,7 +128,7 @@ export default function UploadTemplate({ userWalletAddress }) {
 
           <Form.Item>
             {userWalletAddress
-              ? <Button type="primary" htmlType="submit" block icon={<SendOutlined />}>
+              ? <Button type="primary" htmlType="submit" block icon={<SendOutlined />} loading={loading}>
                   Upload
                 </Button>
               : <Typography.Title level={5} type="danger">
