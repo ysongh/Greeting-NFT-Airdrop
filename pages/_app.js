@@ -11,8 +11,9 @@ import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 
 function MyApp({ Component, pageProps }) {
-  const [userWalletAddress, setUserWalletAddress] = useState('');
-  const [greetingURL, setGreetingURL] = useState('');
+  const [headerTitle, setHeaderTitle] = useState("Greeting NFT Airdrop")
+  const [userWalletAddress, setUserWalletAddress] = useState("");
+  const [greetingURL, setGreetingURL] = useState("");
 
   const connectWallet = async () => {
     setUserWalletAddress("");
@@ -31,8 +32,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div>
-      <Head />
-      <Navbar userWalletAddress={userWalletAddress} connectWallet={connectWallet}  />
+      <Head title={headerTitle} />
+      <Navbar
+        userWalletAddress={userWalletAddress}
+        connectWallet={connectWallet}
+        setHeaderTitle={setHeaderTitle} />
       <Layout.Content style={{ padding: '10px 50px 20px 50px', minHeight: '82vh' }}>
         <Alert
           message="Contract is deployed on Rinkeby Test Network"
