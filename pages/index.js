@@ -12,7 +12,7 @@ export default function Home() {
         <Col className="gutter-row" xs={24} md={12} style={{ padding: '2rem'}}>
           <Typography.Title level={1}>Airdrop NFT of Greeting Card</Typography.Title>
           <p style={{ fontSize: '16px' }}>
-            You can send a NFT of Greeting Catd to someone via email
+            You can send a NFT of Greeting Card to someone via email
           </p>
           <Button type="primary" size='large' onClick={() => router.push('/templatelist')}>
             Send Greeting Card
